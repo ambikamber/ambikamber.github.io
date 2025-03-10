@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Detail - Ambikamber</title>
+    <link rel="icon" sizes="512x512" href="images/logo.png" type="image">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/product-detail.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Firebase App (the core Firebase SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <!-- Firebase Firestore -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <!-- Firebase Analytics -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-analytics.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>Ambikamber</h1>
+                </div>
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#products">Products</a></li>
+                        <li><a href="index.html#about">About</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="product-detail">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a>
+                <i class="fas fa-chevron-right"></i>
+                <a href="index.html#products">Products</a>
+                <i class="fas fa-chevron-right"></i>
+                <span id="product-title-breadcrumb">Product Detail</span>
+            </div>
+            
+            <div class="product-detail-content" id="product-detail-content">
+                <div class="loading-product">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Loading product details...</p>
+                </div>
+            </div>
+            
+            <div class="related-products">
+                <h2>Related Products</h2>
+                <div class="product-grid" id="related-products-grid">
+                    <!-- Related products will be loaded dynamically -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>Ambikamber</h2>
+                    <p>Elegant Nameplates for Your Space</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#products">Products</a></li>
+                        <li><a href="index.html#about">About</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/artev21"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/nameplates_by_ambikamber/"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/917080480777"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Ambikamber. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/firebase-config.js"></script>
+    <script src="js/products.js"></script>
+    <script src="js/product-detail.js"></script>
+</body>
+</html> 

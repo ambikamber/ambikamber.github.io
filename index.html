@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ambikamber - Premium Products</title>
+    <link rel="icon" sizes="512x512" href="images/logo.png" type="image">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Firebase App (the core Firebase SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <!-- Firebase Firestore -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <!-- Firebase Analytics -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-analytics.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>Ambikamber</h1>
+                </div>
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="#" class="active">Home</a></li>
+                        <li><a href="#products">Products</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Elegant Nameplates for Your Space</h1>
+                <p>Personalized designs for homes, apartments, studios, and offices</p>
+                <a href="#products" class="btn">Explore Collection</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="products" class="products">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Nameplates</h2>
+                <p>Browse our exclusive collection of premium nameplates</p>
+            </div>
+            <div class="product-filters">
+                <!-- Category filters will be loaded dynamically -->
+                <button class="filter-btn active" data-filter="all">All</button>
+            </div>
+            <div class="product-grid" id="product-grid">
+                <!-- Products will be loaded dynamically from JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2>About Us</h2>
+                <p>Learn more about our story and craftsmanship</p>
+            </div>
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="images/ambikamber_logo.png" alt="About Ambikamber">
+                </div>
+                <div class="about-text">
+                    <h3>Our Story</h3>
+                    <p>Ambikamber was founded with a passion for creating beautiful, personalized nameplates that add character and elegance to any space. We believe that a nameplate is more than just a sign—it's a statement about your identity and style.</p>
+                    <h3>Our Craftsmanship</h3>
+                    <p>Each nameplate is meticulously crafted using premium materials and attention to detail. We offer a wide range of designs, from classic to contemporary, ensuring that you find the perfect match for your home, apartment, studio, or office.</p>
+                    <h3>Quality Promise</h3>
+                    <p>We stand behind the quality of our products. Every nameplate is designed to be durable, weather-resistant, and maintain its elegance for years to come. Your satisfaction is our priority.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Contact Us</h2>
+                <p>Have questions about our nameplates? We're here to help!</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <h3>Email</h3>
+                        <p>heyambikamber@gmail.com</p>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-whatsapp"></i>
+                        <h3>WhatsApp</h3>
+                        <p><a href="https://wa.me/917080480777">+91 7080480777</a></p>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-whatsapp"></i>
+                        <h3>Instagram</h3>
+                        <p><a href="https://www.instagram.com/nameplates_by_ambikamber/">@nameplates_by_ambikamber</a></p>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+                        <!-- Web3Forms Access Key -->
+                        <input type="hidden" name="access_key" value="93edef78-64f9-49a1-a661-0bf0685714b5">
+                        
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" placeholder="Tell us about your nameplate requirements" required></textarea>
+                        </div>
+                        
+                        <!-- Honeypot Spam Protection -->
+                        <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+                        
+                        <!-- Optional: Add a subject field -->
+                        <input type="hidden" name="subject" value="New Contact Form Submission - Ambikamber">
+                       
+                        
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>Ambikamber</h2>
+                    <p>Elegant Nameplates for Your Space</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#products">Products</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/artev21"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/nameplates_by_ambikamber/"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/917080480777"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Ambikamber. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/firebase-config.js"></script>
+    <script src="js/products.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html> 
