@@ -1,3 +1,56 @@
+// Handle loading animation
+window.addEventListener('load', () => {
+    // Animate the loading text with a typing effect
+    const loadingText = document.querySelector('.loading-text');
+    if (loadingText) {
+        const text = "AMBIKAMBER";
+        let index = 0;
+        
+        // Clear initial text
+        loadingText.textContent = '';
+        
+        // Type out the text letter by letter
+        const typingInterval = setInterval(() => {
+            if (index < text.length) {
+                loadingText.textContent += text.charAt(index);
+                index++;
+            } else {
+                clearInterval(typingInterval);
+            }
+        }, 200);
+    }
+    
+    // Animate the progress bar
+    const progressBar = document.querySelector('.progress-bar');
+    if (progressBar) {
+        let width = 0;
+        const totalTime = 5000; // 5 seconds
+        const interval = 50; // Update every 50ms
+        const increment = (interval / totalTime) * 100;
+        
+        const progressInterval = setInterval(() => {
+            if (width >= 100) {
+                clearInterval(progressInterval);
+            } else {
+                width += increment;
+                progressBar.style.width = width + '%';
+            }
+        }, interval);
+    }
+    
+    // Keep the loading animation visible for 5 seconds
+    setTimeout(() => {
+        const loadingOverlay = document.querySelector('.loading-overlay');
+        if (loadingOverlay) {
+            loadingOverlay.classList.add('fade-out');
+            // Remove from DOM after transition completes
+            setTimeout(() => {
+                loadingOverlay.style.display = 'none';
+            }, 500); // Match this with the CSS transition time
+        }
+    }, 5000); // 5 seconds
+});
+
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize the website once products are loaded
     document.addEventListener('products-loaded', async () => {
@@ -157,8 +210,8 @@ function trackInteraction(type, productId) {
         
         const db = firebase.firestore();
         
-        // Add interaction to Firestore
-        db.collection('interactions').add({
+        // Prepare interaction data
+        const interactionData = {
             type: type,
             productId: productId,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
@@ -166,13 +219,37 @@ function trackInteraction(type, productId) {
             referrer: document.referrer || 'direct',
             page: window.location.pathname,
             sessionId: getSessionId()
-        })
-        .then(() => {
-            console.log(`Tracked ${type} interaction for product ${productId}`);
-        })
-        .catch(error => {
-            console.error('Error tracking interaction:', error);
-        });
+        };
+        
+        // Get visitor location using IP Geolocation API
+        fetch('https://ipapi.co/json/')
+            .then(response => response.json())
+            .then(locationData => {
+                // Add location data to interaction
+                interactionData.location = {
+                    country: locationData.country_name || 'Unknown',
+                    region: locationData.region || 'Unknown',
+                    city: locationData.city || 'Unknown',
+                    ip: locationData.ip || 'Unknown'
+                };
+                
+                // Add interaction to Firestore with location data
+                return db.collection('interactions').add(interactionData);
+            })
+            .then(() => {
+                console.log(`Tracked ${type} interaction for product ${productId}`);
+            })
+            .catch(error => {
+                // If location fetch fails, still track the interaction without location
+                console.error('Error getting location or tracking interaction:', error);
+                db.collection('interactions').add(interactionData)
+                    .then(() => {
+                        console.log(`Tracked ${type} interaction for product ${productId} (without location)`);
+                    })
+                    .catch(err => {
+                        console.error('Error tracking interaction:', err);
+                    });
+            });
     } catch (error) {
         console.error('Error in trackInteraction function:', error);
     }

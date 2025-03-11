@@ -239,8 +239,8 @@ function trackInteraction(type, productId) {
         
         const db = firebase.firestore();
         
-        // Add interaction to Firestore
-        db.collection('interactions').add({
+        // Prepare interaction data
+        const interactionData = {
             type: type,
             productId: productId,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
@@ -248,13 +248,37 @@ function trackInteraction(type, productId) {
             referrer: document.referrer || 'direct',
             page: window.location.pathname,
             sessionId: getSessionId()
-        })
-        .then(() => {
-            console.log(`Tracked ${type} interaction for product ${productId}`);
-        })
-        .catch(error => {
-            console.error('Error tracking interaction:', error);
-        });
+        };
+        
+        // Get visitor location using IP Geolocation API
+        fetch('https://ipapi.co/json/')
+            .then(response => response.json())
+            .then(locationData => {
+                // Add location data to interaction
+                interactionData.location = {
+                    country: locationData.country_name || 'Unknown',
+                    region: locationData.region || 'Unknown',
+                    city: locationData.city || 'Unknown',
+                    ip: locationData.ip || 'Unknown'
+                };
+                
+                // Add interaction to Firestore with location data
+                return db.collection('interactions').add(interactionData);
+            })
+            .then(() => {
+                console.log(`Tracked ${type} interaction for product ${productId}`);
+            })
+            .catch(error => {
+                // If location fetch fails, still track the interaction without location
+                console.error('Error getting location or tracking interaction:', error);
+                db.collection('interactions').add(interactionData)
+                    .then(() => {
+                        console.log(`Tracked ${type} interaction for product ${productId} (without location)`);
+                    })
+                    .catch(err => {
+                        console.error('Error tracking interaction:', err);
+                    });
+            });
     } catch (error) {
         console.error('Error in trackInteraction function:', error);
     }
